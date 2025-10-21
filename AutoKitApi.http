@@ -1,0 +1,6 @@
+@AutoKitApi_HostAddress = http://localhost:5027
+
+GET {{AutoKitApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
