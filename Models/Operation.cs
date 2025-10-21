@@ -14,6 +14,6 @@ public class Operation
 
     [Required] public DateTime PackagedAt { get; set; } = DateTime.UtcNow;
 
-    public Bag Bag { get; set; } = null!;
-    public Product Product { get; set; } = null!;
+    public virtual Bag Bag { get; set; } = null!;
+    public virtual Product Product { get; set; } = null!;
 }

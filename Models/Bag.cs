@@ -9,11 +9,12 @@ public class Bag
 
     [Required] public BagStatus Status { get; set; } = BagStatus.Created;
 
+    [StringLength(1000)]
     public string? ShippingAddress { get; set; }
 
-    [Required] public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    [Required] public DateTime CreatedAt { get; } = DateTime.UtcNow;
 
     [Required] public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-    public ICollection<Operation> Operations { get; set; } = new List<Operation>();
+    public virtual ICollection<Operation> Operations { get; set; } = new List<Operation>();
 }
