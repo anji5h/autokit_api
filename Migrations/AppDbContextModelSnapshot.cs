@@ -24,11 +24,11 @@ namespace AutoKitApi.Migrations
 
             modelBuilder.Entity("AutoKitApi.Models.Bag", b =>
                 {
-                    b.Property<int>("BoxId")
+                    b.Property<int>("BagId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BoxId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BagId"));
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -48,7 +48,7 @@ namespace AutoKitApi.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP AT TIME ZONE 'UTC'");
 
-                    b.HasKey("BoxId");
+                    b.HasKey("BagId");
 
                     b.ToTable("Bags");
                 });

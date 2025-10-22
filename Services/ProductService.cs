@@ -49,4 +49,11 @@ public class ProductService : IProductService
         
         return products.ToList();
     }
+
+    public async Task<bool> CheckProductQuantity(int productId, int quantity)
+    {
+        var product = await _productRepository.GetAsync(x => x.ProductId == productId);
+
+        return product != null && product.Quantity >= quantity;
+    }
 }

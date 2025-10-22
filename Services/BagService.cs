@@ -32,6 +32,12 @@ public class BagService : IBagService
         return bags.ToList();
     }
 
+    public async Task<bool> CheckBag(int bagId)
+    {
+        var bag = await _bagRepository.GetAsync(x=>x.BagId == bagId);
+        return bag != null;
+    }
+
     public async Task UpdateStatus(int bagId, BagStatus status)
     {
         var bag = await _bagRepository.GetAsync(x => x.BagId == bagId);
