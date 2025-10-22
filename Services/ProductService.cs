@@ -15,7 +15,7 @@ public class ProductService : IProductService
         _productRepository = unitOfWork.Repository<Product>();
     }
 
-    public async Task AddProduct(ProductCreateDto  productDto)
+    public async Task Add(ProductCreateDto  productDto)
     {
         var productName = productDto.Name.Trim().ToLower();
         
@@ -43,7 +43,7 @@ public class ProductService : IProductService
     }
     
     
-    public async Task<List<Product>> GetAllProducts()
+    public async Task<List<Product>> GetAll()
     {
         var products = await _productRepository.GetAllAsync();
         

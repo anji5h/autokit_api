@@ -5,7 +5,7 @@ namespace AutoKitApi.Services;
 
 public interface IProductService
 {
-    Task AddProduct(ProductCreateDto  productDto);
+    Task Add(ProductCreateDto  productDto);
 
-    Task<List<Product>> GetAllProducts();
+    Task<List<Product>> GetAll();
 }

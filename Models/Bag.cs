@@ -5,7 +5,7 @@ namespace AutoKitApi.Models;
 
 public class Bag
 {
-    [Key] public int BoxId { get; set; }
+    [Key] public int BagId { get; set; }
 
     [Required] public BagStatus Status { get; set; } = BagStatus.Created;
 

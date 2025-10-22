@@ -16,6 +16,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IBagService, BagService>();
+builder.Services.AddScoped<IOperationService, OperationService>();
 
 var app = builder.Build();
 

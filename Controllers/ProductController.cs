@@ -19,7 +19,7 @@ public class ProductController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateProduct([FromBody] ProductCreateDto productDto)
     {
-        await _productService.AddProduct(productDto);
+        await _productService.Add(productDto);
 
         var response = ApiResponseDto.SuccessResponse("Product created successfully.");
 
@@ -29,9 +29,11 @@ public class ProductController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllProducts()
     {
-        var products = await _productService.GetAllProducts();
+        var products = await _productService.GetAll();
         
         var response = ApiResponseDto.SuccessResponse<List<Product>>(products, "Product list successfully.");
         return Ok(response);
     }
+    
+    
 }
