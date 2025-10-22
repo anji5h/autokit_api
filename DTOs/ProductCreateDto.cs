@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AutoKitApi.Models;
+namespace AutoKitApi.DTOs;
 
-public class Product
+public class ProductCreateDto
 {
-    [Key] public int ProductId { get; set; }
-
     [Required] [StringLength(100)] public string Name { get; set; } = string.Empty;
 
     [StringLength(1000)] public string? Description { get; set; }
@@ -13,8 +11,4 @@ public class Product
     [Required] public int Location { get; set; }
 
     [Required] [Range(0, int.MaxValue)] public int Quantity { get; set; }
-
-    [Required] public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-
-    public virtual ICollection<Operation> Operations { get; set; } = new List<Operation>();
 }

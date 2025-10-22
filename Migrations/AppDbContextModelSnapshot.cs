@@ -53,30 +53,6 @@ namespace AutoKitApi.Migrations
                     b.ToTable("Bags");
                 });
 
-            modelBuilder.Entity("AutoKitApi.Models.BagItem", b =>
-                {
-                    b.Property<int>("BagItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BagItemId"));
-
-                    b.Property<int>("Compartment")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.HasKey("BagItemId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("BagItems");
-                });
-
             modelBuilder.Entity("AutoKitApi.Models.Operation", b =>
                 {
                     b.Property<int>("OperationId")
@@ -141,17 +117,6 @@ namespace AutoKitApi.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("AutoKitApi.Models.BagItem", b =>
-                {
-                    b.HasOne("AutoKitApi.Models.Product", "Product")
-                        .WithMany("BagItems")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("AutoKitApi.Models.Operation", b =>
                 {
                     b.HasOne("AutoKitApi.Models.Bag", "Bag")
@@ -178,8 +143,6 @@ namespace AutoKitApi.Migrations
 
             modelBuilder.Entity("AutoKitApi.Models.Product", b =>
                 {
-                    b.Navigation("BagItems");
-
                     b.Navigation("Operations");
                 });
 #pragma warning restore 612, 618

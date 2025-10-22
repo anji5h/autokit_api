@@ -1,14 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoKitApi.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoKitApi.Repositories;
 
 public class UnitOfWork : IUnitOfWork, IDisposable
 {
-    private readonly DbContext _dbContext;
+    private readonly AppDbContext _dbContext;
     private readonly Dictionary<Type, object> _repositories =  new();
     private bool _disposed;
     
-    public UnitOfWork(DbContext dbContext)
+    public UnitOfWork(AppDbContext dbContext)
     {
         _dbContext = dbContext;
     }

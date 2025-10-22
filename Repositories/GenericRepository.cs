@@ -24,7 +24,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
     public virtual async Task<IReadOnlyList<TEntity>> GetAllAsync()
     {
-        return await DbSet.ToListAsync();
+        return await DbSet.AsNoTracking().ToListAsync();
     }
     
     public virtual async Task<IReadOnlyList<TEntity>> FindAsync(

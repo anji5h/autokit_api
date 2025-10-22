@@ -12,7 +12,6 @@ public class AppDbContext : DbContext
 
     public DbSet<Product> Products { get; set; }
     public DbSet<Bag> Bags { get; set; }
-    public DbSet<BagItem> BagItems { get; set; }
     public DbSet<Operation> Operations { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -28,15 +27,7 @@ public class AppDbContext : DbContext
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP AT TIME ZONE 'UTC'");
             entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP AT TIME ZONE 'UTC'");
         });
-
-        modelBuilder.Entity<BagItem>(entity =>
-        {
-            entity.HasOne<Product>(bi => bi.Product)
-                .WithMany(p => p.BagItems)
-                .HasForeignKey(bi => bi.ProductId)
-                .OnDelete(DeleteBehavior.Cascade);
-        });
-
+        
         modelBuilder.Entity<Operation>(entity =>
         {
             entity.Property(e => e.PackagedAt).HasDefaultValueSql("CURRENT_TIMESTAMP AT TIME ZONE 'UTC'");
