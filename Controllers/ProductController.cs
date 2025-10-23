@@ -38,28 +38,15 @@ public class ProductController : ControllerBase
     {
         var products = await _productService.GetAll();
 
-        var response = ApiResponseDto.SuccessResponse<List<Product>>(products, "Product list successfully.");
+        var response = ApiResponseDto.SuccessResponse(products, "Product list successfully.");
         return Ok(response);
     }
 
     [HttpPost]
     [Route("/api/[controller]/qrcode")]
-    public async Task<IActionResult> GenerateQrCode([FromBody] QrCreateDto qrCreateDto)
+    public IActionResult GenerateQrCode([FromBody] QrCreateDto qrCreateDto)
     {
-        var isProductAvailable = await _productService.CheckProductQuantity(qrCreateDto.ProductId, qrCreateDto.Quantity);
-        var isBagAvailable = await _bagService.CheckBag(qrCreateDto.BagId);
-
-        if (!isProductAvailable)
-        {
-            throw new Exception("Product out of stock or not available.");
-        }
-
-        if (!isBagAvailable)
-        {
-            throw new Exception("Bag not available.");
-        }
-        
-        var baseUrl = _configuration.GetValue<string>("IpAddress");
+        var baseUrl = $"{Request.Scheme}://{Request.Host}";
         var url = $"{baseUrl}/api/operation?bagId={qrCreateDto.BagId}&productId={qrCreateDto.ProductId}&quantity={qrCreateDto.Quantity}";
 
         using var qrGenerator = new QRCodeGenerator();

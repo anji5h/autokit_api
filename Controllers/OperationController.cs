@@ -15,13 +15,24 @@ public class OperationController : ControllerBase
         _operationService = operationService;
     }
 
-    [HttpGet]
+    [HttpPost]
     public async Task<IActionResult> CreateOperation([FromQuery] int bagId, [FromQuery] int productId,
         [FromQuery] int quantity)
     {
         await _operationService.Add(productId, bagId, quantity);
-        
-        var response = ApiResponseDto.SuccessResponse("Operation created");
+
+        var response =
+            ApiResponseDto.SuccessResponse(
+                $"Operation created. ProductId: {productId}, BagId: {bagId}, Quantity: {quantity}");
+        return Ok(response);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetOperations()
+    {
+        var operations = await _operationService.GetAll();
+
+        var response = ApiResponseDto.SuccessResponse(operations, "operations fetched successfully");
         return Ok(response);
     }
 }

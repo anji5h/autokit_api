@@ -1,4 +1,5 @@
 using AutoKitApi.Data;
+using AutoKitApi.Middlewares;
 using AutoKitApi.Repositories;
 using AutoKitApi.Services;
 using Microsoft.EntityFrameworkCore;
@@ -21,13 +22,15 @@ builder.Services.AddScoped<IOperationService, OperationService>();
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1"); });
 }
 
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

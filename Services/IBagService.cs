@@ -9,7 +9,5 @@ public interface IBagService
 
     Task<List<Bag>> GetAll();
 
-    Task<bool> CheckBag(int bagId);
-    
     Task UpdateStatus(int bagId, BagStatus status);
 }

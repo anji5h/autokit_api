@@ -7,7 +7,5 @@ public interface IProductService
 {
     Task Add(ProductCreateDto  productDto);
     
-    Task<bool> CheckProductQuantity(int productId, int quantity);
-
     Task<List<Product>> GetAll();
 }
