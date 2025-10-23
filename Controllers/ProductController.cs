@@ -52,7 +52,7 @@ public class ProductController : ControllerBase
         using var qrGenerator = new QRCodeGenerator();
         using var qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
         using var qrCode = new QRCode(qrCodeData);
-        using var qrBitmap = qrCode.GetGraphic(20);
+        using var qrBitmap = qrCode.GetGraphic(5);
 
         using var stream = new MemoryStream();
         qrBitmap.Save(stream, ImageFormat.Png);
