@@ -47,18 +47,20 @@ public class ProductController : ControllerBase
         var baseUrl = $"{Request.Scheme}://{Request.Host}";
         var payload =
             $"{baseUrl}/api/operation?bagId={qrCreateDto.BagId}&productId={qrCreateDto.ProductId}&quantity={qrCreateDto.Quantity}";
+
+        QRCodeData qrCodeData;
+        using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+        {
+            qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+        }
+
+        var qrCode = new Base64QRCode(qrCodeData);
+        var qrCodeImageAsBase64 = qrCode.GetGraphic(8, SixLabors.ImageSharp.Color.Black,
+            SixLabors.ImageSharp.Color.White);
+
+        var qrCodeImageBytes = Convert.FromBase64String(qrCodeImageAsBase64);
         
-        using var qrGenerator = new QRCodeGenerator();
-        QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
-
-        using var qrCode = new PngByteQRCode(qrCodeData);
-        byte[] qrCodeBytes = qrCode.GetGraphic(
-            pixelsPerModule: 10,
-            darkColor: Color.Black,
-            lightColor: Color.White,
-            drawQuietZones: true);
-
         var qrCodeName = $"qr_code_{DateTime.Now.Ticks}.png";
-        return File(qrCodeBytes, "image/png", qrCodeName);
+        return File(qrCodeImageBytes, "image/png", qrCodeName);
     }
 }
