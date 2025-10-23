@@ -46,10 +46,10 @@ public class ProductController : ControllerBase
     {
         var baseUrl = $"{Request.Scheme}://{Request.Host}";
         var payload =
-            $"{baseUrl}/api/operation?bagId={qrCreateDto.BagId}&productId={qrCreateDto.ProductId}&quantity={qrCreateDto.Quantity}";
+            $"{baseUrl}/api/operation/qrcode?bagId={qrCreateDto.BagId}&productId={qrCreateDto.ProductId}&quantity={qrCreateDto.Quantity}";
 
         QRCodeData qrCodeData;
-        using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+        using (var qrGenerator = new QRCodeGenerator())
         {
             qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
         }
@@ -59,7 +59,7 @@ public class ProductController : ControllerBase
             SixLabors.ImageSharp.Color.White);
 
         var qrCodeImageBytes = Convert.FromBase64String(qrCodeImageAsBase64);
-        
+
         var qrCodeName = $"qr_code_{DateTime.Now.Ticks}.png";
         return File(qrCodeImageBytes, "image/png", qrCodeName);
     }

@@ -15,7 +15,7 @@ public class OperationController : ControllerBase
         _operationService = operationService;
     }
 
-    [HttpPost]
+    [HttpGet("/api/[controller]/qrcode")]
     public async Task<IActionResult> CreateOperation([FromQuery] int bagId, [FromQuery] int productId,
         [FromQuery] int quantity)
     {
